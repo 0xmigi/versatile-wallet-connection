@@ -1,6 +1,6 @@
 import { useAccount, useConnect } from 'wagmi'
 
-export const Example = () => {
+export const Connectors = () => {
   const [{ data, error }, connect] = useConnect()
   const [{ data: accountData }, disconnect] = useAccount({
       fetchEns: true,

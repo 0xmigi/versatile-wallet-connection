@@ -3,8 +3,8 @@ import { InjectedConnector } from 'wagmi/connectors/injected'
 import { WalletConnectConnector } from 'wagmi/connectors/walletConnect'
 import { WalletLinkConnector } from 'wagmi/connectors/walletLink'
 
-import { Example } from './components/Example'
-import { Home } from './components/noCssHome'
+import { Connectors, Example } from './components/Connectors'
+import { Home } from './components/Home'
 
 // API key for Ethereum node
 // Two popular services are Infura (infura.io) and Alchemy (alchemy.com)
@@ -40,7 +40,7 @@ const connectors = ({ chainId }) => {
 
 const App = () => (
   <WagmiProvider autoConnect connectors={connectors}>
-    <Example />
+    <Connectors />
     <Home />
   </WagmiProvider>
 )
