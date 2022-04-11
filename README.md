@@ -6,7 +6,7 @@
 
 ### who is this for:
 
-This write up is for anyone getting into blockchain development and looking to better understand and being able to connect any popular wallet to smart contracts on Ethereum using the popular plain ReactJS framework. This is intended for someone who is familiar with Javascript, ReactJS  and, understands the basic workings of a command line(CLI) and the package manager Yarn. I will assume a lot of things but hopefully nothing to major and end up wasting your valuable learning time.
+This write up is for anyone getting into blockchain development and looking to better understand and being able to connect any popular wallet to smart contracts on Ethereum using the popular plain ReactJS framework. This is intended for someone who is familiar with Javascript, ReactJS  and, understands the basic workings of a command line(CLI) and the package manager Yarn. I will assume a lot of things but hopefully nothing too major and end up wasting your valuable learning time.
 
 ### what i will explain:
 
@@ -20,7 +20,7 @@ In this write up I will not explain how to create a smart contract of any kind o
 
 ### step 1: bare minimum NFT minting site
 
-At this point in your project you hopefully have an existing smart contract/set of smart contracts you either forked from somewhere or built yourself (congrats), and a frontend of some kind built with React. For mine what i have is the most basic possible setup you would need to create and mint an NFT collection. Below is my ‘lilbrydgNFTs’ smart contracts which will allow 10,000 NFT to be minted from it for 0.08 ETH each
+At this point in your project you hopefully have an existing smart contract/set of smart contracts you either forked from somewhere or built yourself (congrats), and a frontend of some kind built with React. For mine what i have is the most basic possible setup you would need to create and mint an NFT collection. Below is my ‘lilNFTs’ smart contracts which will allow 10,000 NFT to be minted from it for 0.08 ETH each
 
 ```solidity
 // SPDX-License-Identifier: MIT
@@ -31,14 +31,14 @@ import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 
-contract lilbrydgeNFTs is ERC721, ERC721URIStorage, Ownable {
+contract lilNFTs is ERC721, ERC721URIStorage, Ownable {
     using Counters for Counters.Counter;
 
     Counters.Counter private _tokenIdCounter;
 
     mapping(string => uint8) existingURIs;
 
-    constructor() ERC721("lilbrydgeNFTs", "LILB") {}
+    constructor() ERC721("lilNFTs", "LILN") {}
 
     function _baseURI() internal pure override returns (string memory) {
         return "ipfs://";
@@ -95,7 +95,7 @@ contract lilbrydgeNFTs is ERC721, ERC721URIStorage, Ownable {
 }
 ```
 
-Next here is my frontend I want users to interact with the NFT minting contract. I import my compiled ‘lilbrydgeNFTs’ abi data and am then able to interact with my deployed contract, in this case running on my local hardhat network.
+Next here is my frontend I want users to interact with the NFT minting contract. I import my compiled ‘lilNFTs’ abi data and am then able to interact with my deployed contract, in this case running on my local hardhat network.
 
 ```jsx
 import { useEffect, useState } from 'react';
@@ -103,7 +103,7 @@ import { useProvider, useContract, useSigner } from 'wagmi';
 import placeholder from '../img/placeholder.png';
 
 import { ethers } from 'ethers';
-import lilbrydgeNFTs from '../artifacts/contracts/MyNFT.sol/lilbrydgeNFTs.json';
+import lilNFTs from '../artifacts/contracts/MyNFT.sol/lilNFTs.json';
 import { doc } from 'prettier';
 
 const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
@@ -114,7 +114,7 @@ const provider = new ethers.providers.Web3Provider(window.ethereum);
 const signer = provider.getSigner();
 
 // get the smart contract
-const contract = new ethers.Contract(contractAddress, lilbrydgeNFTs.abi, signer);
+const contract = new ethers.Contract(contractAddress, lilNFTs.abi, signer);
 
 export const Home = () => {
 
@@ -183,7 +183,7 @@ export const Home = () => {
 
   return (
     <div>
-      <h1>lilbrydgeNFTs Collection</h1>
+      <h1>lilNFTs Collection</h1>
       <div>
         <div>
           {Array(totalMinted + 1)
@@ -204,7 +204,7 @@ export default Home;
 
 The above Home.jsx directory I import into my base App.jsx directory and get a [localhost](http://localhost) page display looking like this.
 
-![Screen Shot 2022-04-10 at 1.11.09 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/231b4bd0-728e-4f6f-a848-a8f4ac4d6c69/Screen_Shot_2022-04-10_at_1.11.09_PM.png)
+![Screen Shot 2022-04-10 at 1.11.09 PM.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/16d1b3d9-8b3d-492b-a6ad-9ca6c6500b36/Screen_Shot_2022-04-10_at_1.11.09_PM.png)
 
 Currently in my App.jsx directory the only thing checking if I am able to connect to a wallet is a simple if statement. 
 
@@ -327,7 +327,7 @@ import { useContract, useSigner } from 'wagmi';
 import placeholder from '../img/placeholder.png';
 
 import { ethers } from 'ethers';
-import lilbrydgeNFTs from '../artifacts/contracts/MyNFT.sol/lilbrydgeNFTs.json';
+import lilNFTs from '../artifacts/contracts/MyNFT.sol/lilNFTs.json';
 
 const contractAddress = "0x5FbDB2315678afecb367f032d93F642f64180aa3";
 
@@ -339,7 +339,7 @@ export const Home = () => {
   // get the smart contract
   const contract = useContract({
     addressOrName: contractAddress,
-    contractInterface: lilbrydgeNFTs.abi,
+    contractInterface: lilNFTs.abi,
     signerOrProvider: data,
   })
 
@@ -408,7 +408,7 @@ export const Home = () => {
 
   return (
     <div>
-      <h1>lilbrydgeNFTs Collection</h1>
+      <h1>lilNFTs Collection</h1>
       <div>
         <div>
           {Array(totalMinted + 1)

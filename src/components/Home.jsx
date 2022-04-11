@@ -4,7 +4,7 @@ import { useProvider, useContract, useSigner } from 'wagmi';
 import placeholder from '../img/placeholder.png';
 
 import { ethers } from 'ethers';
-import lilbrydgeNFTs from '../artifacts/contracts/MyNFT.sol/lilbrydgeNFTs.json';
+import lilNFTs from '../artifacts/contracts/MyNFT.sol/lilNFTs.json';
 
 const contractAddress = "0x610178dA211FEF7D417bC0e6FeD39F05609AD788";
 
@@ -18,7 +18,7 @@ export const Home = () => {
   // get the smart contract
   const contract = useContract({
     addressOrName: contractAddress,
-    contractInterface: lilbrydgeNFTs.abi,
+    contractInterface: lilNFTs.abi,
     signerOrProvider: data,
   })
 
@@ -110,7 +110,7 @@ export const Home = () => {
 
   return (
     <div>
-      <h1>lilbrydgeNFTs Collection</h1>
+      <h1>lilNFTs Collection</h1>
       <div style={{width:'100%'}}>
         <div style={{
           display: 'flex',
